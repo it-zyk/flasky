@@ -36,6 +36,8 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    # 为了避免在测试中处理CSRF令牌这一烦琐操作，最好在测试配置中禁用CSRF保护功能
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \

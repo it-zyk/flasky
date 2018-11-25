@@ -9,6 +9,18 @@ from ..models import User, Permission, Post, Comment
 from ..decorators import admin_required, permission_required
 
 
+@main.route('/shutdown')
+def server_shutdown():
+    # 关闭服务器路由
+    if not current_app.testing:
+        abort(404)
+    shutdown = request.environ.get('werkzeug.server.shutdown')
+    if not shutdown:
+        abort(500)
+    shutdown()
+    return 'Shutting down...'
+
+
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     post = Post.query.get_or_404(id)
