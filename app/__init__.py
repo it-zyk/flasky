@@ -52,6 +52,10 @@ def create_app(config_name):
     完整的URL就变成了http://localhost:5000/auth/login。
     '''
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    from .api import api as api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/api/v1.0')
+
     # 附加路由和自定义的错误页面
 
     return app
